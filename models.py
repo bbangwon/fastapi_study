@@ -10,6 +10,7 @@ class Question(Base):
     subject = Column(String, nullable=False)
     content = Column(Text, nullable=False)
     create_date = Column(DateTime, nullable=False)
+    answers = relationship("Answer", back_populates="question")
 
 class Answer(Base):
     __tablename__ = "answers"
