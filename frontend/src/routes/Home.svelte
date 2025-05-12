@@ -1,14 +1,15 @@
 <script>
+  import fastapi from "../lib/api";
   let question_list = [];
 
   async function get_question_list() {
-    const response = await fetch('http://127.0.0.1:8000/api/question/list')
-    if (response.ok) {
-      const data = await response.json();
+    try{
+      const data = await fastapi('get', '/api/question/list');
       question_list = data;
-    } else {
-      console.error('Failed to fetch question list');
-    }      
+    }
+    catch (error) {
+      console.error('Error fetching question list:', error);
+    }
   }
 
   get_question_list();
