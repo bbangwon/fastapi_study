@@ -19,13 +19,18 @@ const fastapi = async (method, url, params = {}) => {
     }
 
     const response = await fetch(_url, options)
+    if(response.status === 204) { //no content
+        return ''; 
+    }
+
     const data = await response.json();
     if(response.status >= 200 && response.status < 300) {
         return data;
     }
-    else {
-        throw new Error(`Response Status Error: ${response.status} ${response.statusText}`);
-    }
+
+    console.log(data);
+
+    throw {status: response.status, statusText: response.statusText, error: data};
 }
 
 export default fastapi;
