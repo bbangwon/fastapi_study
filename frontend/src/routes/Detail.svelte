@@ -23,7 +23,7 @@
             content: content
         }
         try {
-            result = await fastapi('post', url, params);
+            const result = await fastapi('post', url, params);
             error = {detail:[]}
         } catch (e) {
             if(e.error)
