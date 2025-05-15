@@ -18,7 +18,7 @@ const fastapi = async (method, url, params = {}) => {
         options.body = body;
     }
 
-    const response = await fetch(_url, options)
+    const response = await fetch(_url, options)    
     if(response.status === 204) { //no content
         return ''; 
     }
@@ -29,7 +29,6 @@ const fastapi = async (method, url, params = {}) => {
     }
 
     console.log(data);
-
     throw {status: response.status, statusText: response.statusText, error: data};
 }
 

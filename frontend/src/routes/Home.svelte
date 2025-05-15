@@ -36,4 +36,5 @@
       {/each}
     </tbody>
   </table>
+  <a use:link href="/question-create" class="btn btn-primary">질문하기</a>
 </div>  

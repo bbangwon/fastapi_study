@@ -29,7 +29,7 @@
             if(e.error)
                 error = e.error;
             else
-                alert(e.statusText);
+                alert(e);
         }        
         content = "";
         get_question();
