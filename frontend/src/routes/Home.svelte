@@ -3,7 +3,6 @@
   import { link } from "svelte-spa-router";
   import { page } from '../lib/store'
   import monent from 'moment/min/moment-with-locales'
-  import moment from "moment/min/moment-with-locales";
   moment.locale('ko');
   
   let question_list = [];
