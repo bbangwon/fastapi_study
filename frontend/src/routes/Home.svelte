@@ -1,10 +1,10 @@
 <script>
   import fastapi from "../lib/api";
   import { link } from "svelte-spa-router";
+  import { page } from '../lib/store'
   
   let question_list = [];
   let size = 10;
-  let page = 0;
   let total = 0;
   $: total_page = Math.ceil(total / size);
 
@@ -16,7 +16,7 @@
     try{
       const data = await fastapi('get', '/api/question/list', params);
       question_list = data.question_list;
-      page = _page;
+      $page = _page;
       total = data.total;
     }
     catch (error) {
@@ -24,7 +24,7 @@
     }
   }
 
-  get_question_list(0);
+  $: get_question_list($page);
 
 </script>
 
@@ -49,18 +49,18 @@
   </table>
   <!-- 페이징처리 시작 -->
   <ul class="pagination justify-content-center">
-    <li class="page-item {page <= 0 && 'disabled'}">
-      <button class="page-link" on:click="{() => get_page_list(page - 1)}">이전</button>
+    <li class="page-item {$page <= 0 && 'disabled'}">
+      <button class="page-link" on:click="{() => get_page_list($page - 1)}">이전</button>
     </li>
     {#each Array(total_page) as _, loop_page}
-    {#if loop_page >= page-5 && loop_page <= page+5}
-      <li class="page-item {loop_page === page && 'active'}">
+    {#if loop_page >= $page-5 && loop_page <= $page+5}
+      <li class="page-item {loop_page === $page && 'active'}">
         <button on:click="{() => get_question_list(loop_page)}" class="page-link">{loop_page + 1}</button>
       </li>
     {/if}
     {/each}
-      <li class="page-item {page >= total_page-1 && 'disabled'}">
-      <button class="page-link" on:click="{() => get_page_list(page + 1)}">다음</button>
+      <li class="page-item {$page >= total_page-1 && 'disabled'}">
+      <button class="page-link" on:click="{() => get_page_list($page + 1)}">다음</button>
     </li>
   </ul>
   <!-- 페이징처리 끝 -->   
